@@ -660,7 +660,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1823642613}
-        m_MethodName: SaveScreenshot
+        m_MethodName: SaveCameraTexture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Filename: camera.png
   m_ARCameraBackground: {fileID: 282840812}
   m_RenderTexture: {fileID: 8400000, guid: d3627eef6162a8048940c8cc559f14e5, type: 2}
-  m_ImageType: 2
+  m_ImageFormat: 2
 --- !u!1 &1893558328
 GameObject:
   m_ObjectHideFlags: 0

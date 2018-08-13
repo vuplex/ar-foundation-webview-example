@@ -17,18 +17,18 @@ public class SaveCameraImage : MonoBehaviour
     RenderTexture m_RenderTexture;
 
     [SerializeField]
-    ImageFormat m_ImageType;
+    ImageFormat m_ImageFormat;
 
     Texture2D m_CachedCameraTexture;
 
-    enum ImageFormat
+    public enum ImageFormat
     {
         EXR,
         JPEG,
         PNG
     }
 
-    public void SaveScreenshot()
+    public void SaveCameraTexture()
     {
         if (m_RenderTexture == null || m_ARCameraBackground == null || string.IsNullOrEmpty(m_Filename))
             return;
@@ -53,7 +53,7 @@ public class SaveCameraImage : MonoBehaviour
             m_CachedCameraTexture.ReadPixels(new Rect(0, 0, m_RenderTexture.width, m_RenderTexture.height), 0, 0);
             m_CachedCameraTexture.Apply();
             RenderTexture.active = activeRenderTexture;
-            WriteToFile();
+            WriteTextureToFile();
         }
     }
 
@@ -66,6 +66,36 @@ public class SaveCameraImage : MonoBehaviour
         Graphics.Blit(null, renderTexture, cameraBackground.material);
     }
 
+    public static void WriteTextureToFile(Texture2D texture, string path, ImageFormat imageFormat)
+    {
+        if (texture == null)
+            throw new System.ArgumentNullException("texture");
+
+        if (string.IsNullOrEmpty(path))
+            throw new System.InvalidOperationException("No path specified");
+
+        byte[] bytes;
+        switch (imageFormat)
+        {
+            case ImageFormat.EXR:
+                bytes = texture.EncodeToEXR();
+                break;
+
+            case ImageFormat.JPEG:
+                bytes = texture.EncodeToJPG();
+                break;
+
+            case ImageFormat.PNG:
+                bytes = texture.EncodeToPNG();
+                break;
+
+            default:
+                return;
+        }
+
+        File.WriteAllBytes(path, bytes);
+    }
+
     IEnumerator HandleGPUReadback(AsyncGPUReadbackRequest request)
     {
         if (!request.done)
@@ -76,44 +106,19 @@ public class SaveCameraImage : MonoBehaviour
 
         var colors = request.GetData<Color>();
         m_CachedCameraTexture.SetPixels(colors.ToArray());
-        WriteToFile();
+        WriteTextureToFile();
     }
 
-    void WriteToFile()
+    void WriteTextureToFile()
     {
-        if (m_CachedCameraTexture == null)
-            return;
-
-        byte[] bytes;
-        switch (m_ImageType)
-        {
-            case ImageFormat.EXR:
-                bytes = m_CachedCameraTexture.EncodeToEXR();
-                break;
-
-            case ImageFormat.JPEG:
-                bytes = m_CachedCameraTexture.EncodeToJPG();
-                break;
-
-            case ImageFormat.PNG:
-                bytes = m_CachedCameraTexture.EncodeToPNG();
-                break;
-
-            default:
-                return;
-        }
-
         var path = Path.Combine(Application.persistentDataPath, m_Filename);
-        File.WriteAllBytes(path, bytes);
-        Debug.LogFormat("Saved screenshot to \"{0}\"", path);
+        WriteTextureToFile(m_CachedCameraTexture, path, m_ImageFormat);
+        Debug.LogFormat("Saved texture to \"{0}\"", path);
     }
 
     void EnsureTextureCreated()
     {
         if (m_CachedCameraTexture == null)
-        {
             m_CachedCameraTexture = new Texture2D(m_RenderTexture.width, m_RenderTexture.height, TextureFormat.RGB24, true);
-            m_CachedCameraTexture.wrapMode = TextureWrapMode.Repeat;
-        }
     }
 }
