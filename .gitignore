@@ -40,3 +40,6 @@ sysinfo.txt
 *.unitypackage
 
 .DS_Store
+
+# Vuplex 3D WebView package (https://developer.vuplex.com)
+Assets/Vuplex/WebView*
