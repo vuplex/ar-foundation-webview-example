@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 282840815}
   - component: {fileID: 282840812}
   - component: {fileID: 282840816}
+  - component: {fileID: 282840817}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -254,6 +255,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FocusMode: 1
   m_LightEstimationMode: 1
+--- !u!114 &282840817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282840810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -768656878, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &427002218
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,10 +482,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 700830359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162766bc881294f4b867bd32e1ef2fbe, type: 3}
+  m_Script: {fileID: 11500000, guid: eda4c10192e754459bdb5fb335797fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CameraManager: {fileID: 0}
+  m_CameraManager: {fileID: 282840816}
   m_PlaneManager: {fileID: 1335839537}
   m_MoveDeviceAnimation: {fileID: 1405370717}
   m_TapToPlaceAnimation: {fileID: 1800599825}
@@ -676,11 +693,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335839533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5fd398e1be2b4a428e25850033f4a7c, type: 3}
+  m_Script: {fileID: 11500000, guid: f3cc297814a02435783e7ff79bcab036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlacedPrefab: {fileID: 1237402283603786, guid: 2e80f2e009b5347149ebaae6d96ddfb8,
-    type: 3}
 --- !u!1 &1405370715
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -883,7 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

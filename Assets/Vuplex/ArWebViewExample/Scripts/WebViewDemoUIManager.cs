@@ -2,7 +2,11 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-public class UIManager : MonoBehaviour
+/// <summary>
+/// Like UIManager from the SampleUXScene, except it uses PlaceWebViewOnPlane
+/// instead of PlaceMultipleObjectsOnPlane.
+/// </summary>
+public class WebViewDemoUIManager : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The ARCameraManager which will produce frame events.")]
@@ -70,7 +74,7 @@ public class UIManager : MonoBehaviour
         if (m_CameraManager != null)
             m_CameraManager.frameReceived += FrameChanged;
 
-        PlaceMultipleObjectsOnPlane.onPlacedObject += PlacedObject;
+        PlaceWebViewOnPlane.onPlacedObject += PlacedObject;
     }
 
     void OnDisable()
@@ -78,7 +82,7 @@ public class UIManager : MonoBehaviour
         if (m_CameraManager != null)
             m_CameraManager.frameReceived -= FrameChanged;
 
-        PlaceMultipleObjectsOnPlane.onPlacedObject -= PlacedObject;
+        PlaceWebViewOnPlane.onPlacedObject -= PlacedObject;
     }
 
     void FrameChanged(ARCameraFrameEventArgs args)
