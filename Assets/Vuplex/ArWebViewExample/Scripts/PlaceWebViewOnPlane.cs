@@ -51,7 +51,7 @@ public class PlaceWebViewOnPlane : MonoBehaviour
                 spawnedObject = webViewPrefab.gameObject;
                 webViewPrefab.transform.position = new Vector3(
                     hitPose.position.x,
-                    hitPose.position.y + 0.5f,
+                    hitPose.position.y + 0.7f,
                     hitPose.position.z
                 );
                 webViewPrefab.transform.rotation = hitPose.rotation;
